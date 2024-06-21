@@ -1,3 +1,5 @@
+package Classes.Pessoa;
+
 public class Usuario extends Pessoa {
     
     private double saldo = 50.0;

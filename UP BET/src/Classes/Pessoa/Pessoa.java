@@ -1,3 +1,4 @@
+package Classes.Pessoa;
 public abstract class Pessoa {
     
     private int id;

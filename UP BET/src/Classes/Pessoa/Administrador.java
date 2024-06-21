@@ -1,3 +1,5 @@
+package Classes.Pessoa;
+
 public class Administrador extends Pessoa {
     
     public Administrador(int id, String nome, String cpf, String email){
