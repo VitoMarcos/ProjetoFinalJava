@@ -54,9 +54,27 @@ public class Aposta {
         this.ganhou = ganhou;
     }
 
+    // Método para verificar se a aposta foi vencedora e atualizar o status
+    public void verificarResultado() {
+        String resultado = evento.getResultado();
+        // Lógica específica para verificar se a aposta foi vencedora
+        // Dependendo do tipo de evento, como futebol ou basquete
+        // Por exemplo:
+        if (evento instanceof EventoFutebol) {
+            // Implementar lógica de verificação para futebol
+        } else if (evento instanceof EventoBasquete) {
+            // Implementar lógica de verificação para basquete
+        }
+    }
+
+    // Método para calcular o valor ganho na aposta
+    public double calcularValorGanho() {
+        if (ganhou) {
+            return valorApostado * 2; // Exemplo simples: dobrar o valor da aposta se ganhou
+        } else {
+            return 0; // Se não ganhou, não ganha nada
+        }
+    }
+
     
-
-
-
-
 }
