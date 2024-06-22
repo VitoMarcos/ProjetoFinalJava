@@ -70,7 +70,7 @@ public class Aposta {
     // Método para calcular o valor ganho na aposta
     public double calcularValorGanho() {
         if (ganhou) {
-            return valorApostado * 2; // Exemplo simples: dobrar o valor da aposta se ganhou
+            return valorApostado * odd; // Exemplo simples: dobrar o valor da aposta se ganhou
         } else {
             return 0; // Se não ganhou, não ganha nada
         }

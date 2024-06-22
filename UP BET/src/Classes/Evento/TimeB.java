@@ -4,10 +4,12 @@ public class TimeB {
 
     private String nome;
     private double odd;
+    private int gols;
 
     public TimeB(String nome, double odd) {
         this.nome = nome;
         this.odd = odd;
+        this.gols = setGols(resultados.gerarResultadoFutebol());
     }
 
     public String getNome() {
@@ -24,6 +26,14 @@ public class TimeB {
 
     public void setOdd(double odd) {
         this.odd = odd;
+    }
+
+    public int getGols() {
+        return gols;
+    }
+
+    public void setGols(int gols) {
+        this.gols = gols;
     }
 
 }

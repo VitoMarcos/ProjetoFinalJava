@@ -14,15 +14,11 @@ private static Random random = new Random();
 
  }
 
- public static String gerarResultadoFutebol(){
+ public static int gerarResultadoFutebol(){
 
-    int golsTimeA = random.nextInt(5); // Gols de 0 a 4
-        int golsTimeB = random.nextInt(5); 
-        return golsTimeA + " - " + golsTimeB;
+    int golsTime = random.nextInt(5); // Gols de 0 a 4
+        return golsTime;
 
  }
-
-
-
 
 }
