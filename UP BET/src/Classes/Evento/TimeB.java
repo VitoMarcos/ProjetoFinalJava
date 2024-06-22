@@ -1,3 +1,5 @@
+package Classes.Evento;
+
 public class TimeB {
 
     private String nome;

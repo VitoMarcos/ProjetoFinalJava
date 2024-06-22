@@ -6,8 +6,8 @@ public class EventoFutebol extends Evento{
     
     private Futebol esporte;
 
-    public EventoFutebol(int id, String campeonato, String jogo, String resultado, Futebol esporte) {
-        super(id, campeonato, jogo);
+    public EventoFutebol(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB, String resultado, Futebol esporte) {
+        super(id, campeonato, jogo, timeA, timeB);
         this.esporte = new Futebol();
         this.setResultado(Resultados.gerarResultadoFutebol());
     }
