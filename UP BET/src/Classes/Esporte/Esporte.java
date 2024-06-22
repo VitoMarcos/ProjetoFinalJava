@@ -1,5 +1,5 @@
 package Classes.Esporte;
-import java.util.List;
+
 
 public abstract class Esporte {
     
@@ -17,7 +17,6 @@ public abstract class Esporte {
         this.nome = nome;
     }
 
-    public abstract List<String> tiposAposta();
 
 
 }

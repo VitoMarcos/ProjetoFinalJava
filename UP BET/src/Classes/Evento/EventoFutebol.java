@@ -1,5 +1,6 @@
 package Classes.Evento;
 import Classes.Esporte.Futebol;
+import Classes.Esporte.Resultados;
 
 public class EventoFutebol extends Evento{
     
@@ -8,7 +9,7 @@ public class EventoFutebol extends Evento{
     public EventoFutebol(int id, String campeonato, String jogo, String resultado, Futebol esporte) {
         super(id, campeonato, jogo);
         this.esporte = new Futebol();
-        this.setResultado(GeradorResultados.gerarResultadoFutebol);
+        this.setResultado(Resultados.gerarResultadoFutebol());
     }
 
     public Futebol getEsporte() {
