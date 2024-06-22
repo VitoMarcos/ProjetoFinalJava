@@ -1,5 +1,7 @@
 package Classes.Evento;
 
+import Classes.Esporte.Resultados;
+
 public class TimeB {
 
     private String nome;
@@ -9,7 +11,7 @@ public class TimeB {
     public TimeB(String nome, double odd) {
         this.nome = nome;
         this.odd = odd;
-        this.gols = setGols(resultados.gerarResultadoFutebol());
+        this.gols = setGols(Resultados.gerarResultadoFutebol());
     }
 
     public String getNome() {
@@ -32,8 +34,8 @@ public class TimeB {
         return gols;
     }
 
-    public void setGols(int gols) {
-        this.gols = gols;
+    public int setGols(int gols) {
+        return this.gols = gols;
     }
 
 }

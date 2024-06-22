@@ -1,5 +1,5 @@
 package Classes.Evento;
-public class Evento {
+public class Aposta {
     
     private int id;
     private String campeonato;
@@ -7,7 +7,7 @@ public class Evento {
     private TimeA timeA;
     private TimeB timeB;
     private String resultado;
-    public Evento(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB) {
+    public Aposta(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB) {
         this.id = id;
         this.campeonato = campeonato;
         this.jogo = jogo;

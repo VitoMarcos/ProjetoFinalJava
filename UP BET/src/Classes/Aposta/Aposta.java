@@ -1,16 +1,14 @@
 package Classes.Aposta;
-
-import Classes.Evento.Evento;
 import Classes.Pessoa.Usuario;
 
 public class Aposta {
     
     private Usuario usuario;
-    private Evento evento;
+    private Aposta evento;
     private double valorApostado;
     private boolean ganhou;
     
-    public Aposta(Usuario usuario, Evento evento, double valorApostado) {
+    public Aposta(Usuario usuario, Aposta evento, double valorApostado) {
         this.usuario = usuario;
         this.evento = evento;
         this.valorApostado = valorApostado;
@@ -30,11 +28,11 @@ public class Aposta {
         this.usuario = usuario;
     }
 
-    public Evento getEvento() {
+    public Aposta getEvento() {
         return evento;
     }
 
-    public void setEvento(Evento evento) {
+    public void setEvento(Aposta evento) {
         this.evento = evento;
     }
 
@@ -54,7 +52,7 @@ public class Aposta {
         this.ganhou = ganhou;
     }
 
-    // Método para verificar se a aposta foi vencedora e atualizar o status
+    /*// Método para verificar se a aposta foi vencedora e atualizar o status
     public void verificarResultado() {
         String resultado = evento.getResultado();
         // Lógica específica para verificar se a aposta foi vencedora
@@ -76,5 +74,5 @@ public class Aposta {
         }
     }
 
-    
+    */
 }

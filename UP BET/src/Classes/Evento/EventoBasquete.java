@@ -1,15 +1,15 @@
 package Classes.Evento;
 import Classes.Esporte.Basquete;
-import Classes.Esporte.Resultados;
 
-public class EventoBasquete extends Evento{
+
+public class EventoBasquete extends Aposta{
     
     private Basquete esporte;
 
-    public EventoBasquete(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB, String resultado, Basquete esporte) {
+    public EventoBasquete(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB, Basquete esporte) {
         super(id, campeonato, jogo, timeA, timeB);
         this.esporte = new Basquete();
-        this.setResultado(Resultados.gerarResultadoBasquete());
+        
     }
 
     public Basquete getEsporte() {
