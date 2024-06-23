@@ -1,20 +1,20 @@
 import java.util.ArrayList;
 import java.util.List;
-import Classes.Evento.Aposta;
+import Classes.Evento.Evento;
 
 public class CadastrarEvento{
     
-private static List<Aposta> eventos = new ArrayList<>();
+private static List<Evento> eventos = new ArrayList<>();
 
-public void adicionarEvento(Aposta evento) {
+public void adicionarEvento(Evento evento) {
     eventos.add(evento);
 }
 
-public List<Aposta> listarEventos() {
+public List<Evento> listarEventos() {
     return eventos;
 }
 
-public void atualizarEvento(Aposta eventoAlterado) {
+public void atualizarEvento(Evento eventoAlterado) {
     for (int i = 0; i < eventos.size(); i++) {
         if (eventos.get(i).getId() == eventoAlterado.getId()) {
             eventos.set(i, eventoAlterado);
@@ -23,11 +23,11 @@ public void atualizarEvento(Aposta eventoAlterado) {
     }
 }
 
-public void removerEvento(Aposta evento) {
+public void removerEvento(Evento evento) {
     eventos.remove(evento);
 }
 
-public static List<Aposta> getEventos() {
+public static List<Evento> getEventos() {
     return eventos;
 }
 

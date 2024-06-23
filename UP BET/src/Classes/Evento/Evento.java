@@ -1,19 +1,21 @@
 package Classes.Evento;
-public class Aposta {
+
+import Classes.Evento.Times.TimeA;
+import Classes.Evento.Times.TimeB;
+
+public abstract class Evento {
     
-    private int id;
+    private int id = 0;
     private String campeonato;
-    private String jogo;
     private TimeA timeA;
     private TimeB timeB;
-    private String resultado;
-    public Aposta(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB) {
-        this.id = id;
+    
+
+    public Evento(String campeonato, TimeA timeA, TimeB timeB) {
+        this.id = id++;
         this.campeonato = campeonato;
-        this.jogo = jogo;
         this.timeA = timeA;
         this.timeB = timeB;
-        this.resultado = "";
     }
     public int getId() {
         return id;
@@ -27,18 +29,7 @@ public class Aposta {
     public void setCampeonato(String campeonato) {
         this.campeonato = campeonato;
     }
-    public String getJogo() {
-        return jogo;
-    }
-    public void setJogo(String jogo) {
-        this.jogo = jogo;
-    }
-    public String getResultado() {
-        return resultado;
-    }
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
+    
     public TimeA getTimeA() {
         return timeA;
     }
@@ -52,7 +43,7 @@ public class Aposta {
         this.timeB = timeB;
     }
 
-    
+    public abstract String exibirDadosEvento();
 
 
 }

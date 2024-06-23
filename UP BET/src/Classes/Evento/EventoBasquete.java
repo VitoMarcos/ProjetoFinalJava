@@ -1,15 +1,25 @@
 package Classes.Evento;
 import Classes.Esporte.Basquete;
+import Classes.Evento.Times.TimeA;
+import Classes.Evento.Times.TimeB;
+import Classes.Evento.Times.TimeBasqueteA;
+import Classes.Evento.Times.TimeBasqueteB;
 
 
-public class EventoBasquete extends Aposta{
+public class EventoBasquete{
     
+    private int id = 0;
+    private String campeonato;
+    private TimeBasqueteA timeA;
+    private TimeBasqueteB timeB;
     private Basquete esporte;
 
-    public EventoBasquete(int id, String campeonato, String jogo, TimeA timeA, TimeB timeB, Basquete esporte) {
-        super(id, campeonato, jogo, timeA, timeB);
+    public EventoBasquete(String campeonato, TimeBasqueteA timeA, TimeBasqueteB timeB) {
+        this.id = id++;
+        this.campeonato = campeonato;
+        this.timeA = timeA;
+        this.timeB = timeB;
         this.esporte = new Basquete();
-        
     }
 
     public Basquete getEsporte() {
@@ -18,6 +28,10 @@ public class EventoBasquete extends Aposta{
 
     public void setEsporte(Basquete esporte) {
         this.esporte = esporte;
+    }
+
+    public String exibirDadosEvento() {
+        return "[" + id + "] Jogo\n" + campeonato + "\n" + timeA + " x " + timeB;
     }
 
     

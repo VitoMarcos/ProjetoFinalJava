@@ -1,4 +1,6 @@
 package Classes.Aposta;
+import Classes.Evento.Times.TimeA;
+import Classes.Evento.Times.TimeB;
 import Classes.Pessoa.Usuario;
 
 public class Aposta {
@@ -6,20 +8,43 @@ public class Aposta {
     private Usuario usuario;
     private Aposta evento;
     private double valorApostado;
+    private TimeA timeA;
+    private TimeB timeB;
+    private int prevGolsA; //previsaoGolsTimeA
+    private int prevGolsB; //previsaoGolsTimeB
     private boolean ganhou;
     
-    public Aposta(Usuario usuario, Aposta evento, double valorApostado) {
+    public Aposta(Usuario usuario, Aposta evento, double valorApostado, TimeA timeA, TimeB timeB, int prevGolsA, int prevGolsB) {
         this.usuario = usuario;
         this.evento = evento;
         this.valorApostado = valorApostado;
-        this.ganhou = false;
+        this.timeA = timeA;
+        this.timeB = timeB;
+        this.prevGolsA = prevGolsA;
+        this.prevGolsB = prevGolsB;
+        this.ganhou = verificarAposta();
+        atualizarSaldoUsuario();;
     }
 
-   
-   
-   
-   
-   
+    private boolean verificarAposta() {
+        return timeA.getGols() == prevGolsA && timeB.getGols() == prevGolsB;
+    }
+
+    // Método para calcular o valor ganho na aposta
+    public double calcularValorGanho() {
+        if (ganhou) {
+            return valorApostado * timeA.getOdd() * timeB.getOdd(); 
+        } else {
+            return - valorApostado; 
+        }
+    }
+
+
+    private void atualizarSaldoUsuario() {
+        double valorGanho = calcularValorGanho();
+        usuario.atualizarSaldo(valorGanho);
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -52,27 +77,36 @@ public class Aposta {
         this.ganhou = ganhou;
     }
 
-    /*// Método para verificar se a aposta foi vencedora e atualizar o status
-    public void verificarResultado() {
-        String resultado = evento.getResultado();
-        // Lógica específica para verificar se a aposta foi vencedora
-        // Dependendo do tipo de evento, como futebol ou basquete
-        // Por exemplo:
-        if (evento instanceof EventoFutebol) {
-            // Implementar lógica de verificação para futebol
-        } else if (evento instanceof EventoBasquete) {
-            // Implementar lógica de verificação para basquete
-        }
+    public TimeA getTimeA() {
+        return timeA;
     }
 
-    // Método para calcular o valor ganho na aposta
-    public double calcularValorGanho() {
-        if (ganhou) {
-            return valorApostado * odd; // Exemplo simples: dobrar o valor da aposta se ganhou
-        } else {
-            return 0; // Se não ganhou, não ganha nada
-        }
+    public void setTimeA(TimeA timeA) {
+        this.timeA = timeA;
     }
 
-    */
+    public TimeB getTimeB() {
+        return timeB;
+    }
+
+    public void setTimeB(TimeB timeB) {
+        this.timeB = timeB;
+    }
+
+    public int getPrevGolsA() {
+        return prevGolsA;
+    }
+
+    public void setPrevGolsA(int prevGolsA) {
+        this.prevGolsA = prevGolsA;
+    }
+
+    public int getPrevGolsB() {
+        return prevGolsB;
+    }
+
+    public void setPrevGolsB(int prevGolsB) {
+        this.prevGolsB = prevGolsB;
+    }
+
 }

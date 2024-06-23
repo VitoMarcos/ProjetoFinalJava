@@ -2,16 +2,15 @@ package Classes.Pessoa;
 
 public class Administrador extends Pessoa {
     
-    public Administrador(int id, String nome, String cpf, String email){
-        super(id, nome, cpf, email);
+    public Administrador(String nome, String email){
+        super(nome, email);
     }
 
-    
-    
+
     @Override
     public String exibirDados() {
         
-        return "Administrador\nId: " + getId() + "Nome: " + getNome() + "\nCPF: " + getCpf() + "\nEmail: " + getEmail();
+        return "Administrador\nNome: " + getNome() + "\nEmail: " + getEmail();
     }
 
 
