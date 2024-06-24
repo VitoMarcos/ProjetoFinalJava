@@ -75,8 +75,5 @@ public class Console {
         return valor;
     }
 
-    static void nextLine() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
 }

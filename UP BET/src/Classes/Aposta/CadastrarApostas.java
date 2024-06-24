@@ -1,7 +1,6 @@
+package Classes.Aposta;
 import java.util.ArrayList;
 import java.util.List;
-
-import Classes.Aposta.Aposta;
 
 public class CadastrarApostas {
     

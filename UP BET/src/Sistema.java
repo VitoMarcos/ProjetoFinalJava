@@ -1,4 +1,6 @@
 import Classes.Aposta.Aposta;
+import Classes.Aposta.CadastrarApostas;
+import Classes.Aposta.CadastrarEvento;
 import Classes.Aposta.Evento;
 import Classes.Aposta.GerirAposta;
 import Classes.Aposta.GerirEventos;
@@ -7,18 +9,20 @@ import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sistema {
     
     static String nome;
     static String email;
+    private static Scanner leitor = new Scanner(System.in);
     
         private static void menuPrincipal() {
     
             System.out.println("Bem-vindo a UP Bet! Escolha uma das opções!");
             System.out.println("[1] Administrador");
             System.out.println("[2] Usuário");
-            System.out.print("[0] Sair!"); 
+            System.out.print("[0] Sair!\n"); 
     
         }
     
@@ -152,7 +156,7 @@ public class Sistema {
     
         public static void enterParaSeguir() {
             System.out.println("\nClique em qualquer tecla para continuar");
-            Console.nextLine();
+            leitor.nextLine();
         }
                  
     
