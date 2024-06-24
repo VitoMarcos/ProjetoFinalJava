@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import Classes.Aposta.Aposta;
 import Classes.Aposta.Evento;
 import Classes.Aposta.GerirAposta;
@@ -8,11 +6,156 @@ import Classes.Pessoa.Administrador;
 import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
+import java.util.ArrayList;
 
 public class Sistema {
     
     static String nome;
     static String email;
+    
+        private static void menuPrincipal() {
+    
+            System.out.println("Bem-vindo a UP Bet! Escolha uma das opções!");
+            System.out.println("[1] Administrador");
+            System.out.println("[2] Usuário");
+            System.out.print("[0] Sair!"); 
+    
+        }
+    
+        private static void verificarOpcaoMenuPrincipal(int opcao) {
+    
+            switch (opcao) {
+    
+                case 1:
+
+                    cadastrarAdm();
+                    enterParaSeguir();
+                    menuAdm();
+                    break;
+    
+                case 2:
+
+                    cadastrarUsuario();
+                    enterParaSeguir();
+                    menuUsu();
+                    break;
+    
+                case 0:
+    
+                    System.out.println("Obrigado por ultilizar a UP Bet!");
+                    break;
+    
+                default:
+    
+                    System.out.println("A opção digitada é inválida, digite novamente!");
+                    break;
+    
+            }
+        
+        }
+    
+        private static void menuAdm() {
+    
+            System.out.println("Bem-vindo administrador:" /*inserir variavel do nome do administrador */);
+                    System.out.println("[1] Criar Evento");
+                    System.out.println("[2] Listar Evento");
+                    System.out.println("[3] Buscar Evento");
+                    System.out.println("[4] Atualizar Evento");
+                    System.out.println("[5] Excluir Evento");
+                    System.out.print("[0] Voltar para o Menu Principal!");
+        
+        }
+    
+        private static void verificarOpcaoMenuAdm(int opcaoAdm) {
+    
+            switch (opcaoAdm) {
+    
+                case 1:
+
+                    cadastrarEvento();
+                    break;
+    
+                case 2:
+
+                    listarEventos();
+                    break;
+    
+                case 3:
+    
+                    break;
+    
+                case 4:
+    
+                    break;
+    
+                case 5:
+    
+                    break;
+    
+                case 0:
+    
+                    break;
+    
+                default:
+    
+                    System.out.println("A opção digitada é inválida, digite novamente!");
+                    break;
+    
+            }
+    
+        }
+    
+        private static void menuUsu() {
+    
+            System.out.println("Bem-vindo usuário:" /*inserir variavel do nome do usuário */);
+                    System.out.println("[1] Realizar Apostas");
+                    System.out.println("[2] Ver Apostas");
+                    System.out.println("[3] Alterar Apostas");
+                    System.out.println("[4] Excluir Apostas");
+                    System.out.print("[0] Voltar para o Menu Principal!");
+    
+        }
+    
+        private static void verificarOpcaoMenuUsu(int opcaoUsu) {
+    
+            switch (opcaoUsu) {
+    
+                case 1:
+                
+                    cadastrarAposta();
+                    break;
+    
+                case 2:
+    
+                    break;
+    
+                case 3:
+    
+                    break;
+    
+                case 4:
+    
+                    break;
+    
+                case 0:
+    
+                    break;
+    
+                default:
+    
+                    System.out.println("A opção digitada é inválida, digite novamente!");
+                    break;
+    
+            }
+    
+        }
+    
+        public static void enterParaSeguir() {
+            System.out.println("\nClique em qualquer tecla para continuar");
+            Console.nextLine();
+        }
+                 
+    
 
     private static void cadastrarUsuario() {
 
@@ -159,6 +302,5 @@ public class Sistema {
 
     }
 
-
-
 }
+
