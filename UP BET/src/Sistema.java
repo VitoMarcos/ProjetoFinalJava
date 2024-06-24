@@ -121,7 +121,7 @@ public class Sistema {
             switch (opcaoUsu) {
     
                 case 1:
-                
+
                     cadastrarAposta();
                     break;
     
@@ -302,5 +302,17 @@ public class Sistema {
 
     }
 
+    public static void executar() {
+
+        int op;
+
+        do { 
+            menuPrincipal();
+            op = Console.lerInt();
+            verificarOpcaoMenuPrincipal(op);
+        } while (op != 0);
+
+    }
+    
 }
 
