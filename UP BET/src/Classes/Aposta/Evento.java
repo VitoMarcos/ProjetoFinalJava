@@ -1,3 +1,4 @@
+package Classes.Aposta;
 import Times.TimeA;
 import Times.TimeB;
 
@@ -8,6 +9,7 @@ public class Evento{
     private TimeA timeA;
     private TimeB timeB;
     
+    public Evento(){}
 
     public Evento(String campeonato, TimeA timeA, TimeB timeB) {
         this.id = id++;
@@ -45,5 +47,14 @@ public class Evento{
         return "[" + id + "] " + campeonato + "\n" + timeA + " x " + timeB;
     }
 
+    public void fromString(String linha) {
+
+        String[] partes = linha.split(", ");
+
+        campeonato = partes[0].split("=")[1];
+        TimeA timeA = TimeA.fromString(partes[2]);
+        TimeB timeB = TimeB.fromString(partes[3]);
+
+    }
 
 }

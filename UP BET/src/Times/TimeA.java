@@ -17,5 +17,13 @@ public class TimeA extends Time{
         return this.gols = gols;
     }
 
+    public String toFileString() {
+        return getNome() + ", " + getOdd() + ", ";
+    }
+
+    public static TimeA fromString(String data) {
+        String[] partes = data.split(", ");
+        return new TimeA(partes[0], Double.parseDouble(partes[1]));
+    }
 
 }

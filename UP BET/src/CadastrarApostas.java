@@ -1,32 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Classes.Aposta.Aposta;
+
 public class CadastrarApostas {
     
-private static List<Evento> apostas = new ArrayList<>();
+private static List<Aposta> apostas = new ArrayList<>();
 
-public void adicionarAposta(Evento aposta) {
+public static void adicionarAposta(Aposta aposta) {
     apostas.add(aposta);
 }
 
-public List<Evento> listarApostas() {
+public List<Aposta> listarApostas() {
     return apostas;
 }
 
-public void atualizarAposta(Evento apostaAlterada) {
+public static void atualizarAposta(Aposta apostaAlterada) {
     for (int i = 0; i < apostas.size(); i++) {
-        if (apostas.get(i).getId() == apostaAlterada.getId()) {
+        if (apostas.get(i).getEvento() == apostaAlterada.getEvento()) {
             apostas.set(i, apostaAlterada);
             return;
         }
     }
 }
 
-public void removerAposta(Evento aposta) {
+public static void removerAposta(Aposta aposta) {
     apostas.remove(aposta);
 }
 
-public static List<Evento> getApostas() {
+public static List<Aposta> getApostas() {
     return apostas;
 }
 

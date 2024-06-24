@@ -3,10 +3,11 @@ import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
 
+
 public class Aposta {
     
     private Usuario usuario;
-    private Aposta evento;
+    private Evento evento;
     private double valorApostado;
     private TimeA timeA;
     private TimeB timeB;
@@ -14,7 +15,7 @@ public class Aposta {
     private int prevGolsB; //previsaoGolsTimeB
     private boolean ganhou;
     
-    public Aposta(Usuario usuario, Aposta evento, double valorApostado, TimeA timeA, TimeB timeB, int prevGolsA, int prevGolsB) {
+    public Aposta(Usuario usuario, Evento evento, double valorApostado, TimeA timeA, TimeB timeB, int prevGolsA, int prevGolsB) {
         this.usuario = usuario;
         this.evento = evento;
         this.valorApostado = valorApostado;
@@ -53,11 +54,11 @@ public class Aposta {
         this.usuario = usuario;
     }
 
-    public Aposta getEvento() {
+    public Evento getEvento() {
         return evento;
     }
 
-    public void setEvento(Aposta evento) {
+    public void setEvento(Evento evento) {
         this.evento = evento;
     }
 

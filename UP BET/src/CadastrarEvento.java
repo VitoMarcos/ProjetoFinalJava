@@ -1,19 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Classes.Aposta.Evento;
+
 public class CadastrarEvento{
     
 private static List<Evento> eventos = new ArrayList<>();
 
-public void adicionarEvento(Evento evento) {
+public static void adicionarEvento(Evento evento) {
     eventos.add(evento);
 }
 
-public List<Evento> listarEventos() {
+public static List<Evento> listarEventos() {
     return eventos;
 }
 
-public void atualizarEvento(Evento eventoAlterado) {
+public static void atualizarEvento(Evento eventoAlterado) {
     for (int i = 0; i < eventos.size(); i++) {
         if (eventos.get(i).getId() == eventoAlterado.getId()) {
             eventos.set(i, eventoAlterado);
@@ -22,7 +24,7 @@ public void atualizarEvento(Evento eventoAlterado) {
     }
 }
 
-public void removerEvento(Evento evento) {
+public static void removerEvento(Evento evento) {
     eventos.remove(evento);
 }
 
@@ -30,6 +32,11 @@ public static List<Evento> getEventos() {
     return eventos;
 }
 
+public static void verificarListaVazia() throws Exception {
 
+    if (eventos.isEmpty()) {
+        throw new Exception("\nATENÇÃO: Não há eventos disponíveis");
+    }
+}
 
 }

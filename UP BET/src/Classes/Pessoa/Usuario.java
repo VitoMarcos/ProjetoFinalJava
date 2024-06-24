@@ -4,9 +4,9 @@ public class Usuario extends Pessoa {
     
     private double saldo = 50.0;
 
-    public Usuario(String nome, String email, double saldo) {
+    public Usuario(String nome, String email) {
         super(nome, email);
-        this.saldo = saldo;
+        this.saldo = 50.0;
     }
 
     public double getSaldo() {
@@ -28,7 +28,7 @@ public class Usuario extends Pessoa {
 
     @Override
     public String exibirDados(){
-        return "USUÁRIO:\nNome: " + getNome() + "\nEmail: " + getEmail() + "Saldo atual: " + saldo;
+        return "\nUSUÁRIO:\nNome: " + getNome() + "\nEmail: " + getEmail() + "Saldo atual: " + saldo;
     }
 
 }
