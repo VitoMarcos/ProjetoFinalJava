@@ -1,9 +1,7 @@
-package Classes.Evento;
+import Times.TimeA;
+import Times.TimeB;
 
-import Classes.Evento.Times.TimeA;
-import Classes.Evento.Times.TimeB;
-
-public abstract class Evento {
+public class Evento{
     
     private int id = 0;
     private String campeonato;
@@ -43,7 +41,9 @@ public abstract class Evento {
         this.timeB = timeB;
     }
 
-    public abstract String exibirDadosEvento();
+    public String exibirDadosEvento(){
+        return "[" + id + "] " + campeonato + "\n" + timeA + " x " + timeB;
+    }
 
 
 }

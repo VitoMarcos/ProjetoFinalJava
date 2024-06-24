@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import Classes.Evento.Evento;
 
 public class CadastrarEvento{
     

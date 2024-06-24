@@ -1,7 +1,7 @@
 package Classes.Aposta;
-import Classes.Evento.Times.TimeA;
-import Classes.Evento.Times.TimeB;
 import Classes.Pessoa.Usuario;
+import Times.TimeA;
+import Times.TimeB;
 
 public class Aposta {
     
@@ -109,4 +109,8 @@ public class Aposta {
         this.prevGolsB = prevGolsB;
     }
 
+   /*  public String exibirAposta(){
+        return 
+        }
+*/
 }

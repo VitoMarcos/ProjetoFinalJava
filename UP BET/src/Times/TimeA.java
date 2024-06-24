@@ -1,6 +1,4 @@
-package Classes.Evento.Times;
-
-import Classes.Esporte.Resultados;
+package Times;
 
 public class TimeA extends Time{
 
@@ -8,7 +6,7 @@ public class TimeA extends Time{
 
     public TimeA(String nome, double odd) {
         super(nome, odd);
-        this.gols = setGols(Resultados.gerarResultadoFutebol());
+        this.gols = setGols(Resultados.gerarResultado());
     }
 
     public int getGols() {

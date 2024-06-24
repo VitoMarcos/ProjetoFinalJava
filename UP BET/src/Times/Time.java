@@ -1,4 +1,4 @@
-package Classes.Evento.Times;
+package Times;
 
 
 public class Time {

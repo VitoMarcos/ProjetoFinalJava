@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import Classes.Evento.Evento;
-
 public class CadastrarApostas {
     
 private static List<Evento> apostas = new ArrayList<>();
