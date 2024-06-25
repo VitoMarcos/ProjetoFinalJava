@@ -8,7 +8,6 @@ import Classes.Pessoa.Administrador;
 import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 

@@ -1,0 +1,2 @@
+1, Pokal, Bayer Leverkusen, 2.1, Bayer Munchen, 2.6
+5, Polal, Torino, 1.9, Juventus, 3.45

@@ -24,7 +24,7 @@ public class Aposta {
         this.prevGolsA = prevGolsA;
         this.prevGolsB = prevGolsB;
         this.ganhou = verificarAposta();
-        atualizarSaldoUsuario();;
+        atualizarSaldoUsuario();
     }
 
     private boolean verificarAposta() {
