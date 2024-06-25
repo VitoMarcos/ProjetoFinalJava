@@ -18,11 +18,25 @@ public class TimeB extends Time{
     }
 
     public String toFileString() {
-        return getNome() + ", " + getOdd() + ", ";
+        return getNome() + ", " + getOdd();
     }
 
     public static TimeB fromString(String data) {
-        String[] partes = data.split(", ");
-        return new TimeB(partes[0], Double.parseDouble(partes[1]));
+        String[] parts = data.split(", ");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid data format for TimeB: " + data);
+        }
+        String nome = parts[0];
+        double odd = Double.parseDouble(parts[1]);
+        return new TimeB(nome, odd);
+    }
+
+    @Override
+    public String toString() {
+        return "TimeB{" +
+                "nome='" + getNome() + '\'' +
+                ", odd=" + getOdd() +
+                ", gols=" + gols +
+                '}';
     }
 }

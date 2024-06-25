@@ -9,6 +9,7 @@ import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sistema {
@@ -27,21 +28,31 @@ public class Sistema {
         }
     
         private static void verificarOpcaoMenuPrincipal(int opcao) {
-    
+            
             switch (opcao) {
     
                 case 1:
-
+                    int op;
                     cadastrarAdm();
                     enterParaSeguir();
+                    do {
                     menuAdm();
+                    op = Console.lerInt();
+                    verificarOpcaoMenuAdm(op);
+                } while (op != 0);
                     break;
     
                 case 2:
-
+                    int op2;
                     cadastrarUsuario();
                     enterParaSeguir();
-                    menuUsu();
+                    do {
+
+                        menuUsu();
+                        op2 = Console.lerInt();
+                        verificarOpcaoMenuUsu(op2);
+                        
+                    } while (op2 != 0);
                     break;
     
                 case 0:
@@ -66,7 +77,7 @@ public class Sistema {
                     System.out.println("[3] Buscar Evento");
                     System.out.println("[4] Atualizar Evento");
                     System.out.println("[5] Excluir Evento");
-                    System.out.print("[0] Voltar para o Menu Principal!");
+                    System.out.print("[0] Voltar para o Menu Principal!\n");
         
         }
     
@@ -116,7 +127,7 @@ public class Sistema {
                     System.out.println("[2] Ver Apostas");
                     System.out.println("[3] Alterar Apostas");
                     System.out.println("[4] Excluir Apostas");
-                    System.out.print("[0] Voltar para o Menu Principal!");
+                    System.out.print("[0] Voltar para o Menu Principal!\n");
     
         }
     
@@ -163,13 +174,13 @@ public class Sistema {
 
     private static void cadastrarUsuario() {
 
-        System.out.println("É um prazer tê-lo aqui conosco!");
+        System.out.println("\nÉ um prazer tê-lo aqui conosco!");
         System.out.println("Por favor, nos dê algumas infomrações para que possamos fazer seu cadastro");
         System.out.print("Seu nome: ");
         nome = Console.lerString();
         System.out.print("Seu email: ");
         email = Console.lerString();
-        System.out.println("Sucesso!\nA UP BET te proporciona um saldo inicial de R$50,00 para suas apostas.\nCaso deseje aumenta-lo, é só acessar a opção 'saldo' no menu.");
+        System.out.println("\nSucesso!\nA UP BET te proporciona um saldo inicial de R$50,00 para suas apostas.\nCaso deseje aumenta-lo, é só acessar a opção 'saldo' no menu.");
     }
     
     static Usuario u = new Usuario(nome, email);
@@ -185,7 +196,7 @@ public class Sistema {
         email = Console.lerString();
         Administrador a = new Administrador(nome, email);
         a.exibirDados();
-        System.out.println("Ótimo, agora você pode criar eventos esportivos e definir as Odd´s das apostas.");
+        System.out.println("\nÓtimo, agora você pode criar eventos esportivos e definir as Odd´s das apostas.");
     }
 
     private static void cadastrarEvento() {
@@ -195,10 +206,10 @@ public class Sistema {
         double odd;
         String nome2;
         double odd2;
-        System.out.println("Excelente! Aqui você poderá criar os eventos esportivos que serão apostados. Vamos começar...");
-        System.out.print("Nos informe de qual campeonato é este jogo: ");
+        System.out.println("\nExcelente! Aqui você poderá criar os eventos esportivos que serão apostados. Vamos começar...");
+        System.out.print("\nNos informe de qual campeonato é este jogo: ");
         camp = Console.lerString();
-        System.out.println("Agora precisamos conhecer os times que se enfrentarão");
+        System.out.println("\nAgora precisamos conhecer os times que se enfrentarão");
         System.out.print("Nome do primeiro time: ");
         nome = Console.lerString();
         System.out.print(nome + " Odd: ");
@@ -230,25 +241,19 @@ public class Sistema {
 
     }
 
-    private static void listarEventos(){
-
-         ArrayList<Evento> listaEventos = (ArrayList<Evento>) CadastrarEvento.getEventos();
-
+    public static void listarEventos() {
         try {
-            CadastrarEvento.verificarListaVazia();
-            
-            System.out.println("\nEventos disponíveis:");
-            for (Evento tempE : listaEventos) {
-    
-                System.out.println(tempE.exibirDadosEvento());
+            List<Evento> eventos = CadastrarEvento.getEventos();
+            for (Evento tempEvento : eventos) {
+                System.out.println("[" + tempEvento.getId() + "] " + tempEvento.getCampeonato());
+                System.out.println(tempEvento.getTimeA().getNome() + " (" + tempEvento.getTimeA().getOdd() + ") x " + tempEvento.getTimeB().getNome() + " (" + tempEvento.getTimeB().getOdd() + ")");
+                System.out.println();
             }
-
-        } catch (Exception exception) {
-
-            System.out.println(exception.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro ao listar eventos: " + e.getMessage());
         }
-
     }
+    
 
     public static void processarAposta(Evento evento) {
         
@@ -272,7 +277,7 @@ public class Sistema {
         try {
 
             GerirAposta.salvarAposta(aposta);
-            System.out.println("\nAposta criada com sucesso!");
+            System.out.println("\nAposta feita com sucesso!");
 
         } catch (Exception exception) {
 
@@ -289,21 +294,24 @@ public class Sistema {
     do {
 
         listarEventos();
-        System.out.println("Selecione o número de qual você deseja apostar");
-        System.out.print("Digite 0 para voltar ao menu de usuário");
+        System.out.println("\nSelecione o número de qual você deseja apostar");
+        System.out.print("Digite '0' para voltar ao menu de usuário\n");
         op = Console.lerInt();
+        System.out.println("ID selecionado: " + op); // Linha de depuração
 
         try {
             Evento eventoSelecionado = GerirEventos.buscarEvento(op);
+            System.out.println("Evento selecionado: " + eventoSelecionado); // Linha de depuração
             processarAposta(eventoSelecionado);
         } catch (Exception e) {
             System.out.println("Jogo inexistente. Por favor, digite novamente...");
+            e.printStackTrace(); // Adicionado para ver o stack trace
         }
 
         
     } while (op!=0);
 
-
+        return;
     }
 
     public static void executar() {

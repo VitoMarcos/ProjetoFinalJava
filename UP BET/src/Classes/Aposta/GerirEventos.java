@@ -20,11 +20,7 @@ public class GerirEventos {
         try (FileWriter fWriter = new FileWriter(ARQUIVO, true);
                 BufferedWriter bWriter = new BufferedWriter(fWriter)) {
 
-                    for (Evento tempE : listaEventos) {
-
-                        bWriter.write(tempE.toString() + "\n");
-        
-                    }
+                    bWriter.write(evento.toFileString() + "\n");
 
         } catch (IOException e) {
             System.out.println("Houve um erro ao criar ou acessar o arquivo " + ARQUIVO);
@@ -32,30 +28,25 @@ public class GerirEventos {
 
     }
 
-     public static List<Evento> lerEventos() throws Exception {
-
-        ArrayList<Evento> listaEventos = (ArrayList<Evento>) CadastrarEvento.getEventos();
-        listaEventos.clear();
+    public static ArrayList<Evento> lerEventos() throws IOException, Exception {
+        ArrayList<Evento> eventos = new ArrayList<>();
 
         try (FileReader fReader = new FileReader(ARQUIVO);
-                BufferedReader bReader = new BufferedReader(fReader)) {
-
+             BufferedReader bReader = new BufferedReader(fReader)) {
             String linha;
 
             while ((linha = bReader.readLine()) != null) {
-
-                Evento tempE = new Evento();
-
-                tempE.fromString(linha);
-
-                CadastrarEvento.adicionarEvento(tempE);
-
+                Evento evento = Evento.fromString(linha);
+                eventos.add(evento);
+                System.out.println("Evento carregado: " + evento); // Linha de depuração
             }
         }
-        if (listaEventos.isEmpty()) {
-            throw new Exception("Não há jogos criados.");
+
+        if (eventos.isEmpty()) {
+            throw new Exception("Não há eventos salvos.");
         }
-        return listaEventos;
+
+        return eventos;
     }
 
     public static void criarArquivoSeNaoExistir() {
@@ -75,15 +66,18 @@ public class GerirEventos {
     }
 
     public static Evento buscarEvento(int id) throws Exception {
-        ArrayList<Evento> eventos = (ArrayList<Evento>) lerEventos();
-    
-        for (Evento tempEvento : eventos) {
-            if (tempEvento.getId() == id) {
-                return tempEvento;
+        ArrayList<Evento> eventos = lerEventos();
+        System.out.println("Eventos disponíveis: " + eventos); 
+        
+        for (Evento evento : eventos) {
+            System.out.println("Verificando evento com ID: " + evento.getId()); // Linha de depuração
+            if (evento.getId() == id) {
+                System.out.println("Evento encontrado: " + evento); // Linha de depuração
+                return evento;
             }
         }
-    
-        throw new Exception("Evento com o ID " + id + " não encontrado!");
 
-}
+        throw new Exception("Evento com o ID " + id + " não encontrado!");
+    }
+    
 }
