@@ -253,6 +253,73 @@ public class Sistema {
         }
     }
     
+    // *** Novo Método ***
+    private static void buscarEvento() {
+        System.out.print("Informe o campeonato do evento que deseja buscar: ");
+        int id = Console.lerInt();
+
+        try {
+
+            Evento evento = GerirEventos.buscarEvento(id);
+            System.out.println(evento.exibirDadosEvento());
+
+        } catch (Exception exception) {
+
+            System.out.println(exception.getMessage());
+        }
+
+    }
+
+    // *** Novo Método ***
+    private static void atualizarEvento() {
+        System.out.print("Informe o campeonato do evento que deseja atualizar: ");
+        int id = Console.lerInt();
+
+        /* try {
+
+            Evento evento = GerirEventos.buscarEvento(id);
+            System.out.print("Atualizar primeiro time: ");
+            String nome = Console.lerString();
+            System.out.print(nome + "Atualizar odd: ");
+            double odd = Console.lerDouble();
+
+            evento.getTimeA().setNome(nome);
+            evento.getTimeA().setOdd(odd);
+
+            System.out.print("Novo nome do segundo time: ");
+            String nome2 = Console.lerString();
+            System.out.print(nome2 + "Atualizar odd: ");
+            double odd2 = Console.lerDouble();
+
+            evento.getTimeB().setNome(nome2);
+            evento.getTimeB().setOdd(odd2);
+
+            GerirEventos.atualizarEvento(evento);
+            System.out.println("Evento atualizado com sucesso!");
+
+        } catch (Exception exception) {
+
+            System.out.println(exception.getMessage());
+        } */
+
+    }
+
+    // *** Novo Método ***
+    private static void excluirEvento() {
+        System.out.print("Informe o campeonato do evento que deseja excluir: ");
+        int id = Console.lerInt();
+
+        /* try {
+
+            GerirEventos.excluirEvento(id);
+            System.out.println("Evento excluído com sucesso!");
+
+        } catch(Exception exception) {
+
+            System.out.println(exception.getMessage());
+        } */
+
+    }
 
     public static void processarAposta(Evento evento) {
         
@@ -311,6 +378,50 @@ public class Sistema {
     } while (op!=0);
 
         return;
+    }
+
+    // *** Novo Método ***
+    private static void verApostas() {
+        // ArrayList<Aposta> listaApostas = (ArrayList<Aposta>) CadastrarApostas.getApostas();
+
+        /* try {
+
+            CadastrarApostas.verificarListaVazia();
+            System.out.println("\nApostas realizadas:");
+
+            for (Aposta aposta : listaApostas) {
+                System.out.println(aposta.exibirDadosAposta());
+            }
+
+        } catch(Exception exception) {
+
+            System.out.println(exception.getMessage());
+        } */
+
+    }
+
+    // *** Novo Método (Incompleto) ***
+    private static void alterarAposta() {
+        System.out.print("Digite o campeonato da aposta que deseja alterar: ");
+        int id = Console.lerInt();
+
+    }
+
+    // *** Novo Método ***
+    private static void excluirAposta() {
+        System.out.print("Digite o campeonato da aposta que deseja excluir: ");
+        int id = Console.lerInt();
+
+        /* (try {
+
+            GerirAposta.excluirAposta(id);
+            System.out.println("Aposta excluída com sucesso!");
+
+        } catch(Exception exception) {
+
+            System.out.println(exception.getMessage());
+        } */
+
     }
 
     public static void executar() {
