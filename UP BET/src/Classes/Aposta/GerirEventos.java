@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Classes.Pessoa.Usuario;
+import Times.Resultados;
+
 
 public class GerirEventos {
    
@@ -79,5 +82,68 @@ public class GerirEventos {
 
         throw new Exception("Evento com o ID " + id + " não encontrado!");
     }
-    
+
+    public static Evento buscarEventoPeloId(int id) throws Exception {
+        for (Evento tempE : CadastrarEvento.getEventos()) {
+            if (tempE.getId() == id) {
+                return tempE;
+            }
+        }
+        throw new IllegalArgumentException("Evento não encontrado");
+    }
+
+//Metodos da classe gerirEventos para os resultados dos jogos: 
+    public static void processarResultados() {
+    try {
+        // Ler todos os eventos
+        ArrayList<Evento> eventos = lerEventos();
+
+        // Gerar resultados aleatórios para cada evento
+        for (Evento evento : eventos) {
+            evento.getTimeA().setGols(Resultados.gerarResultado());
+            evento.getTimeB().setGols(Resultados.gerarResultado());
+        }
+
+        
+        // Verificar apostas
+        verificarApostas(eventos);
+
+    } catch (Exception e) {
+        System.out.println("Erro ao processar resultados: " + e.getMessage());
+    }
 }
+
+    private static void verificarApostas(ArrayList<Evento> eventos) {
+    try {
+        ArrayList<Aposta> apostas = GerirAposta.lerApostas();
+
+        for (Aposta aposta : apostas) {
+            Evento evento = aposta.getEvento();
+            for (Evento e : eventos) {
+                if (e.getId() == evento.getId()) {
+                    if (aposta.getPrevGolsA() == e.getTimeA().getGols() && aposta.getPrevGolsB() == e.getTimeB().getGols()) {
+                        double valorGanho = aposta.calcularValorGanho();
+                        aposta.getUsuario().atualizarSaldo(valorGanho);
+                        System.out.println("Aposta ganha! Valor ganho: " + valorGanho);
+                    } else {
+                        System.out.println("Aposta perdida.");
+                    }
+                }
+            }
+        }
+
+    } catch (Exception e) {
+        System.out.println("Erro ao verificar apostas: " + e.getMessage());
+    
+    }
+}
+
+
+
+
+
+
+
+
+    }
+    

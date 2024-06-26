@@ -1,4 +1,5 @@
 package Classes.Aposta;
+import Classes.Pessoa.GerirUsuarios;
 import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
@@ -33,11 +34,8 @@ public class Aposta {
 
     // Método para calcular o valor ganho na aposta
     public double calcularValorGanho() {
-        if (ganhou) {
-            return valorApostado * timeA.getOdd() * timeB.getOdd(); 
-        } else {
-            return - valorApostado; 
-        }
+        double oddTotal = timeA.getOdd() * timeB.getOdd();
+        return valorApostado * oddTotal;
     }
 
 
@@ -110,8 +108,41 @@ public class Aposta {
         this.prevGolsB = prevGolsB;
     }
 
-   /*  public String exibirAposta(){
-        return 
+    public String toFileString() {
+        return usuario.getNome() + ", " + evento.getId() + ", " + valorApostado + ", " + timeA.getNome() + ", " + timeB.getNome() + ", " + prevGolsA + ", " + prevGolsB;
+    }
+
+    public static Aposta fromString(String data) throws Exception {
+        String[] parts = data.split(", ");
+        if (parts.length != 10) { // Verificando se há 10 partes
+            throw new IllegalArgumentException("Invalid data format for Aposta: " + data);
         }
-*/
+        String nomeUsuario = parts[0];
+        int idEvento = Integer.parseInt(parts[1]);
+        double valorApostado = Double.parseDouble(parts[2]);
+        TimeA timeA = TimeA.fromString(parts[3] + ", " + parts[4] + ", " + parts[5]);
+        TimeB timeB = TimeB.fromString(parts[6] + ", " + parts[7] + ", " + parts[8]);
+        int prevGolsA = Integer.parseInt(parts[9]);
+        int prevGolsB = Integer.parseInt(parts[10]);
+
+        Usuario usuario = GerirUsuarios.buscarUsuario(nomeUsuario);
+
+        Evento evento = GerirEventos.buscarEventoPeloId(idEvento);
+
+        return new Aposta(usuario, evento, valorApostado, timeA, timeB, prevGolsA, prevGolsB);
+    }
+    
+    @Override
+    public String toString() {
+        return "Aposta{" +
+                "usuario=" + usuario.getNome() +
+                ", evento=" + evento.getId() +
+                ", valorApostado=" + valorApostado +
+                ", timeA=" + timeA +
+                ", timeB=" + timeB +
+                ", prevGolsA=" + prevGolsA +
+                ", prevGolsB=" + prevGolsB +
+                '}';
+    }
+
 }

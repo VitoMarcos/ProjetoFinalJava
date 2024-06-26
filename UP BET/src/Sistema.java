@@ -8,6 +8,8 @@ import Classes.Pessoa.Administrador;
 import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -247,6 +249,9 @@ public class Sistema {
                 System.out.println("[" + tempEvento.getId() + "] " + tempEvento.getCampeonato());
                 System.out.println(tempEvento.getTimeA().getNome() + " (" + tempEvento.getTimeA().getOdd() + ") x " + tempEvento.getTimeB().getNome() + " (" + tempEvento.getTimeB().getOdd() + ")");
                 System.out.println();
+                if (eventos.isEmpty()) {
+                    System.out.println("Sem eventos...");
+                }
             }
         } catch (Exception e) {
             System.out.println("Erro ao listar eventos: " + e.getMessage());
@@ -275,7 +280,7 @@ public class Sistema {
         System.out.print("Informe o campeonato do evento que deseja atualizar: ");
         int id = Console.lerInt();
 
-        /* try {
+       try {
 
             Evento evento = GerirEventos.buscarEvento(id);
             System.out.print("Atualizar primeiro time: ");
@@ -294,13 +299,13 @@ public class Sistema {
             evento.getTimeB().setNome(nome2);
             evento.getTimeB().setOdd(odd2);
 
-            GerirEventos.atualizarEvento(evento);
+            //GerirEventos.atualizarEvento(evento);
             System.out.println("Evento atualizado com sucesso!");
 
         } catch (Exception exception) {
 
             System.out.println(exception.getMessage());
-        } */
+        } 
 
     }
 
@@ -363,15 +368,15 @@ public class Sistema {
         System.out.println("\nSelecione o número de qual você deseja apostar");
         System.out.print("Digite '0' para voltar ao menu de usuário\n");
         op = Console.lerInt();
-        System.out.println("ID selecionado: " + op); // Linha de depuração
+       
 
         try {
             Evento eventoSelecionado = GerirEventos.buscarEvento(op);
-            System.out.println("Evento selecionado: " + eventoSelecionado); // Linha de depuração
             processarAposta(eventoSelecionado);
+
         } catch (Exception e) {
             System.out.println("Jogo inexistente. Por favor, digite novamente...");
-            e.printStackTrace(); // Adicionado para ver o stack trace
+            
         }
 
         
@@ -379,6 +384,7 @@ public class Sistema {
 
         return;
     }
+
 
     // *** Novo Método ***
     private static void verApostas() {
