@@ -8,6 +8,7 @@ import Classes.Pessoa.Administrador;
 import Classes.Pessoa.Usuario;
 import Times.TimeA;
 import Times.TimeB;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -96,14 +97,17 @@ public class Sistema {
     
                 case 3:
     
+                    buscarEvento();
                     break;
     
                 case 4:
     
+                    atualizarEvento();
                     break;
     
                 case 5:
     
+                    excluirEvento();
                     break;
     
                 case 0:
@@ -141,14 +145,17 @@ public class Sistema {
     
                 case 2:
     
+                    verApostas();
                     break;
     
                 case 3:
     
+                    alterarAposta();
                     break;
     
                 case 4:
     
+                    excluirAposta();
                     break;
     
                 case 0:
@@ -275,7 +282,7 @@ public class Sistema {
         System.out.print("Informe o campeonato do evento que deseja atualizar: ");
         int id = Console.lerInt();
 
-        /* try {
+         try {
 
             Evento evento = GerirEventos.buscarEvento(id);
             System.out.print("Atualizar primeiro time: ");
@@ -300,7 +307,7 @@ public class Sistema {
         } catch (Exception exception) {
 
             System.out.println(exception.getMessage());
-        } */
+        } 
 
     }
 
@@ -309,7 +316,7 @@ public class Sistema {
         System.out.print("Informe o campeonato do evento que deseja excluir: ");
         int id = Console.lerInt();
 
-        /* try {
+         try {
 
             GerirEventos.excluirEvento(id);
             System.out.println("Evento excluído com sucesso!");
@@ -317,7 +324,7 @@ public class Sistema {
         } catch(Exception exception) {
 
             System.out.println(exception.getMessage());
-        } */
+        } 
 
     }
 
@@ -382,9 +389,9 @@ public class Sistema {
 
     // *** Novo Método ***
     private static void verApostas() {
-        // ArrayList<Aposta> listaApostas = (ArrayList<Aposta>) CadastrarApostas.getApostas();
+         ArrayList<Aposta> listaApostas = (ArrayList<Aposta>) CadastrarApostas.getApostas();
 
-        /* try {
+         try {
 
             CadastrarApostas.verificarListaVazia();
             System.out.println("\nApostas realizadas:");
@@ -396,7 +403,7 @@ public class Sistema {
         } catch(Exception exception) {
 
             System.out.println(exception.getMessage());
-        } */
+        } 
 
     }
 
@@ -405,6 +412,7 @@ public class Sistema {
         System.out.print("Digite o campeonato da aposta que deseja alterar: ");
         int id = Console.lerInt();
 
+        
     }
 
     // *** Novo Método ***
@@ -412,7 +420,7 @@ public class Sistema {
         System.out.print("Digite o campeonato da aposta que deseja excluir: ");
         int id = Console.lerInt();
 
-        /* (try {
+         try {
 
             GerirAposta.excluirAposta(id);
             System.out.println("Aposta excluída com sucesso!");
@@ -420,7 +428,7 @@ public class Sistema {
         } catch(Exception exception) {
 
             System.out.println(exception.getMessage());
-        } */
+        } 
 
     }
 

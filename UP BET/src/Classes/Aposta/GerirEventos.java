@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class GerirEventos {
@@ -78,6 +77,14 @@ public class GerirEventos {
         }
 
         throw new Exception("Evento com o ID " + id + " não encontrado!");
+    }
+
+    public static void atualizarEvento(Evento evento) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public static void excluirEvento(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

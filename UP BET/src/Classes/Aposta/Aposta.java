@@ -114,4 +114,8 @@ public class Aposta {
         return 
         }
 */
+
+    public boolean exibirDadosAposta() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
