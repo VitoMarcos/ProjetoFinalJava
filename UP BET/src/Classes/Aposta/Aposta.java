@@ -145,4 +145,8 @@ public class Aposta {
                 '}';
     }
 
+    public String exibirDadosAposta(){
+        return "[ " + evento.getId() + " ] " + evento.getCampeonato() + "\nResultado apostado: " + timeA.getNome() + " " + prevGolsA + " x " + prevGolsB + " " + timeB.getNome() + "\nValor apostado: R$" + valorApostado; 
+    }
+
 }

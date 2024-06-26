@@ -10,6 +10,10 @@ public static void adicionarAposta(Aposta aposta) {
     apostas.add(aposta);
 }
 
+    public static void verificarListaVazia() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 public List<Aposta> listarApostas() {
     return apostas;
 }

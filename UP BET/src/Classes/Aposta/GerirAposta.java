@@ -53,6 +53,10 @@ public class GerirAposta{
 
     }
 
+    public static void excluirAposta(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     
 }
 

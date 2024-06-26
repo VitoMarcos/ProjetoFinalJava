@@ -1,5 +1,0 @@
-1, Copa America, Chile, 0.8, Venezuela, 3.5
-2, Copa America, Costa Rica, 5.8, Brasil, 0.2
-3, Copa America, Canada, 3.3, Argentina, 1.2
-1, Eurocopa, Austria, 3.4, Alemanha, 1.3
-2, Eurocopa, Holanda, 3.4, Fran�a, 1.7
