@@ -1,7 +1,6 @@
 package Classes.Pessoa;
 import java.util.ArrayList;
 
-import Classes.Aposta.Aposta;
 
 public class GerirUsuarios {
     private static ArrayList<Usuario> usuarios = new ArrayList<>();

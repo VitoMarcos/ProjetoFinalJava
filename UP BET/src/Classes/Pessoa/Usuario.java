@@ -2,11 +2,12 @@ package Classes.Pessoa;
 
 public class Usuario extends Pessoa {
     
-    private double saldo = 50.0;
+    private double saldo;
+    private double saldoInicial = 50.0;
 
     public Usuario(String nome, String email) {
         super(nome, email);
-        this.saldo = 50.0;
+        this.saldo = saldoInicial;
     }
 
     public double getSaldo() {

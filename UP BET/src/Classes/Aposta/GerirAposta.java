@@ -57,8 +57,21 @@ public class GerirAposta{
 
     }
 
-    public static void excluirAposta(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static void removerTodasApostas() {
+        try {
+            
+            ArrayList<Aposta> listaApostas = new ArrayList<>();
+            CadastrarApostas.setApostas(listaApostas);
+    
+            
+            try (FileWriter fWriter = new FileWriter(ARQUIVO, false)) {
+                
+                fWriter.write("");
+            }
+    
+        } catch (Exception e) {
+            System.out.println("Erro ao remover apostas: " + e.getMessage());
+        }
     }
 
     

@@ -45,7 +45,7 @@ public class Evento{
     }
 
     public String exibirDadosEvento(){
-        return "[" + id + "] " + campeonato + "\n" + timeA.getNome() + " x " + timeB.getNome();
+        return "[" + id + "] " + campeonato + "\n" + timeA.getNome() + " x " + timeB.getNome() + "\n";
     }
 
     public String toFileString() {

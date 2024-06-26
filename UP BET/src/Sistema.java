@@ -7,11 +7,10 @@ import Classes.Aposta.GerirEventos;
 import Classes.Pessoa.Administrador;
 import Classes.Pessoa.GerirUsuarios;
 import Classes.Pessoa.Usuario;
-import Times.Resultados;
 import Times.TimeA;
 import Times.TimeB;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -52,6 +51,7 @@ public class Sistema {
                     cadastrarUsuario();
                     login(nome);
                     enterParaSeguir();
+                    System.out.println("Bem-vindo " + usuarioAtual.getNome());
                     do {
 
                         menuUsu();
@@ -77,12 +77,11 @@ public class Sistema {
     
         private static void menuAdm() {
     
-            System.out.println("Bem-vindo administrador:" /*inserir variavel do nome do administrador */);
+            System.out.println("Bem-vindo administrador");
                     System.out.println("[1] Criar Evento");
-                    System.out.println("[2] Listar Evento");
-                    System.out.println("[3] Buscar Evento");
-                    System.out.println("[4] Atualizar Evento");
-                    System.out.println("[5] Excluir Evento");
+                    System.out.println("[2] Listar Eventos");
+                    System.out.println("[3] Atualizar Evento");
+                    System.out.println("[4] Excluir Evento");
                     System.out.print("[0] Voltar para o Menu Principal!\n");
         
         }
@@ -103,19 +102,14 @@ public class Sistema {
     
                 case 3:
     
-                    buscarEvento();
+                    atualizarEvento();
                     break;
     
                 case 4:
     
-                    atualizarEvento();
-                    break;
-    
-                case 5:
-    
+                   
                     excluirEvento();
                     break;
-    
                 case 0:
     
                     break;
@@ -131,12 +125,10 @@ public class Sistema {
     
         private static void menuUsu() {
     
-            System.out.println("Bem-vindo usuário:" /*inserir variavel do nome do usuário */);
-                    System.out.println("[1] Realizar Apostas");
+                    System.out.println("[1] Apostar!");
                     System.out.println("[2] Ver Apostas");
-                    System.out.println("[3] Alterar Apostas");
-                    System.out.println("[4] Excluir Apostas");
-                    System.out.println("[5] Ver resultados");
+                    System.out.println("[3] Gerenciar salddo");
+                    System.out.println("[4] Ver resultados");
                     System.out.print("[0] Voltar para o Menu Principal!\n");
     
         }
@@ -156,21 +148,19 @@ public class Sistema {
                     break;
     
                 case 3:
-    
-                    alterarAposta();
+                    Usuario u = obterUsuarioAtual();
+                    exibirSaldoUsuario(u);
+                    recarregarSaldo(u);
                     break;
     
                 case 4:
     
-                    excluirAposta();
-                    break;
-    
-                case 5:
-
-                    GerirEventos.processarResultados();
+                GerirEventos.processarResultados();
+                GerirAposta.removerTodasApostas();
+                GerirEventos.removerTodosEventos();
                     break;
                 case 0:
-    
+                //Usuario voltou ao menu principal
                     break;
     
                 default:
@@ -286,9 +276,9 @@ public class Sistema {
 
     public static void listarEventos() {
         try {
-            List<Evento> eventos = CadastrarEvento.getEventos();
+            List<Evento> eventos = GerirEventos.lerEventos();
             for (Evento tempEvento : eventos) {
-                System.out.println("[" + tempEvento.getId() + "] " + tempEvento.getCampeonato());
+                System.out.println("\n[" + tempEvento.getId() + "] " + tempEvento.getCampeonato());
                 System.out.println(tempEvento.getTimeA().getNome() + " (" + tempEvento.getTimeA().getOdd() + ") x " + tempEvento.getTimeB().getNome() + " (" + tempEvento.getTimeB().getOdd() + ")");
                 System.out.println();
                 if (eventos.isEmpty()) {
@@ -300,66 +290,53 @@ public class Sistema {
         }
     }
     
-    // *** Novo Método ***
-    private static void buscarEvento() {
-        System.out.print("Informe o campeonato do evento que deseja buscar: ");
-        int id = Console.lerInt();
-
-        try {
-
-            Evento evento = GerirEventos.buscarEvento(id);
-            System.out.println(evento.exibirDadosEvento());
-
-        } catch (Exception exception) {
-
-            System.out.println(exception.getMessage());
-        }
-
-    }
-
-    // *** Novo Método ***
     private static void atualizarEvento() {
-        System.out.print("Informe o campeonato do evento que deseja atualizar: ");
+        listarEventos();
+        System.out.print("Escolha o jogo que você deseja atualizar: \n");
         int id = Console.lerInt();
 
        try {
 
             Evento evento = GerirEventos.buscarEvento(id);
+            System.out.print("Atualizar o campeonato: ");
+            String camp = Console.lerString();
             System.out.print("Atualizar primeiro time: ");
             String nome = Console.lerString();
-            System.out.print(nome + "Atualizar odd: ");
+            evento.setCampeonato(camp);
+            System.out.print(nome + " odd: ");
             double odd = Console.lerDouble();
 
             evento.getTimeA().setNome(nome);
             evento.getTimeA().setOdd(odd);
 
-            System.out.print("Novo nome do segundo time: ");
+            System.out.print("Atualizar segundo time: ");
             String nome2 = Console.lerString();
-            System.out.print(nome2 + "Atualizar odd: ");
+            System.out.print(nome2 + " odd: ");
             double odd2 = Console.lerDouble();
 
             evento.getTimeB().setNome(nome2);
             evento.getTimeB().setOdd(odd2);
 
-            //GerirEventos.atualizarEvento(evento);
-            System.out.println("Evento atualizado com sucesso!");
+            GerirEventos.atualizarEvento(evento);
+            System.out.println("\nEvento atualizado com sucesso!\n");
+            evento.exibirDadosEvento();
 
-        } catch (Exception exception) {
+        } catch (Exception e) {
 
-            System.out.println(exception.getMessage());
+            System.out.println(e.getMessage());
         } 
 
     }
 
-    // *** Novo Método ***
     private static void excluirEvento() {
-        System.out.print("Informe o campeonato do evento que deseja excluir: ");
+        listarEventos();
+        System.out.print("Informe o jogo que deseja excluir: ");
         int id = Console.lerInt();
 
          try {
 
-            //GerirEventos.excluirEvento(id);
-            System.out.println("Evento excluído com sucesso!");
+            GerirEventos.excluirEvento(id);
+            System.out.println("Evento excluído com sucesso!\n");
 
         } catch(Exception exception) {
 
@@ -375,6 +352,12 @@ public class Sistema {
         
         System.out.print("Digite o valor da aposta: ");
         double valorAposta = Console.lerDouble();
+         
+        Usuario usuario = obterUsuarioAtual();
+        if (usuario.getSaldo() < valorAposta) {
+        System.out.println("Saldo insuficiente para realizar a aposta.\nSeu saldo atual: R$" + usuario.getSaldo() + "\n");
+        return;
+    }
 
         System.out.print("Digite o número de gols do " + evento.getTimeA().getNome() + ": ");
         int golsA = Console.lerInt();
@@ -384,6 +367,8 @@ public class Sistema {
 
          
         Aposta aposta = new Aposta(usuarioAtual, evento, valorAposta, evento.getTimeA(), evento.getTimeB(), golsA, golsB);
+        
+        usuario.atualizarSaldo(-valorAposta);
         
         CadastrarApostas.adicionarAposta(aposta);
 
@@ -397,6 +382,7 @@ public class Sistema {
             System.out.println(exception.getMessage());
         }
 
+        System.out.println("Saldo atual: " + usuario.getSaldo());
     }
 
 
@@ -407,7 +393,7 @@ public class Sistema {
     do {
 
         listarEventos();
-        System.out.println("\nSelecione o número de qual você deseja apostar");
+        System.out.println("\nSelecione o número de qual jogo você deseja apostar");
         System.out.print("Digite '0' para voltar ao menu de usuário\n");
         op = Console.lerInt();
        
@@ -415,7 +401,9 @@ public class Sistema {
         try {
             Evento eventoSelecionado = GerirEventos.buscarEvento(op);
             processarAposta(eventoSelecionado);
-
+            if (op == 0) {
+                System.out.println("Voltando ao menu principal...\n");
+            }
         } catch (Exception e) {
             System.out.println("Jogo inexistente. Por favor, digite novamente...");
             
@@ -461,31 +449,20 @@ public class Sistema {
         System.out.println(exception.getMessage());
     }
     }
-    // *** Novo Método (Incompleto) ***
-    private static void alterarAposta() {
-        System.out.print("Digite o campeonato da aposta que deseja alterar: ");
-        int id = Console.lerInt();
 
-        
+    // Novo método para exibir o saldo do usuário
+    private static void exibirSaldoUsuario(Usuario u) {
+        u.exibirDados();
+        System.out.println("Seu saldo atual é: R$" + u.getSaldo());
     }
-
-    // *** Novo Método ***
-    private static void excluirAposta() {
-        System.out.print("Digite o campeonato da aposta que deseja excluir: ");
-        int id = Console.lerInt();
-
-         try {
-
-            GerirAposta.excluirAposta(id);
-            System.out.println("Aposta excluída com sucesso!");
-
-        } catch(Exception exception) {
-
-            System.out.println(exception.getMessage());
-        } 
-
+    
+    private static void recarregarSaldo(Usuario u) {
+        System.out.print("Digite a quantia que deseja adicionar ao saldo: ");
+        double quantia = Console.lerDouble();
+        u.atualizarSaldo(quantia);
+        System.out.println("Saldo atualizado com sucesso! Seu novo saldo é: R$" + u.getSaldo());
+        enterParaSeguir();
     }
-
 
     public static void executar() throws Exception {
 

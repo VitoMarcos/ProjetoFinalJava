@@ -1,6 +1,5 @@
 package Classes.Aposta;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CadastrarApostas {
     
@@ -34,7 +33,7 @@ public static void adicionarAposta(Aposta aposta) {
         return apostas;
     }
 
-    public static void setApostas(ArrayList<Aposta> apostas) {
-        CadastrarApostas.apostas = apostas;
+    public static void setApostas(ArrayList<Aposta> a) {
+        apostas = a;
     }
 }

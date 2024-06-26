@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CadastrarEvento{
     
-private static List<Evento> eventos = new ArrayList<>();
+private static ArrayList<Evento> eventos = new ArrayList<>();
 
 public static void adicionarEvento(Evento evento) {
     eventos.add(evento);
@@ -29,6 +29,10 @@ public static void removerEvento(Evento evento) {
 
 public static List<Evento> getEventos() {
     return eventos;
+}
+
+public static void setEventos(ArrayList<Evento> e) {
+    eventos = e;
 }
 
 public static void verificarListaVazia() throws Exception {

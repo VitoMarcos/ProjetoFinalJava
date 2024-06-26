@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import Classes.Pessoa.Usuario;
 import Times.Resultados;
 
 
@@ -17,20 +15,27 @@ public class GerirEventos {
    
     private static final String ARQUIVO = "eventos.txt";
 
-    public static void salvarEvento(Evento evento) {
-
-        ArrayList<Evento> listaEventos = (ArrayList<Evento>) CadastrarEvento.getEventos();
-
-        try (FileWriter fWriter = new FileWriter(ARQUIVO, true);
-                BufferedWriter bWriter = new BufferedWriter(fWriter)) {
-
-                    bWriter.write(evento.toFileString() + "\n");
-
-        } catch (IOException e) {
-            System.out.println("Houve um erro ao criar ou acessar o arquivo " + ARQUIVO);
+    public static void salvarEvento(Evento evento) throws IOException {
+        
+        ArrayList<Evento> eventos = new ArrayList<>();
+        try {
+            eventos = lerEventos();
+        } catch (Exception e) {
+            // Se não houver eventos existentes continua com a lista vazia
         }
-
+    
+        
+        eventos.add(evento);
+    
+        
+        try (FileWriter fWriter = new FileWriter(ARQUIVO, false);
+             BufferedWriter bWriter = new BufferedWriter(fWriter)) {
+            for (Evento e : eventos) {
+                bWriter.write(e.toFileString() + "\n");
+            }
+        }
     }
+    
 
     public static ArrayList<Evento> lerEventos() throws IOException, Exception {
         ArrayList<Evento> eventos = new ArrayList<>();
@@ -71,7 +76,6 @@ public class GerirEventos {
 
     public static Evento buscarEvento(int id) throws Exception {
         ArrayList<Evento> eventos = lerEventos();
-        System.out.println("Eventos disponíveis: " + eventos); 
         
         for (Evento evento : eventos) {
            
@@ -111,7 +115,7 @@ public class GerirEventos {
 
     } catch (Exception e) {
         System.out.println("Erro ao processar resultados: " + e.getMessage());
-        e.printStackTrace(); // Adicionado para ajudar a identificar o problema
+        
     }
 }
 
@@ -125,7 +129,7 @@ public class GerirEventos {
                 int golsA = e.getTimeA().getGols();
                 int golsB = e.getTimeB().getGols();
                 System.out.println("Verificando aposta para o evento: " + e.getId());
-                System.out.println("Resultado do jogo: " + e.getTimeA().getNome() + " " + golsA + " x " + golsB + " " + e.getTimeB().getNome());
+                System.out.println("Resultado do jogo: " + e.getTimeA().getNome() + " " + golsA + " x " + golsB + " " + e.getTimeB().getNome() + "\n");
                 eventosVerificados.add(e.getId());
 
                 for (Aposta aposta : apostas) {
@@ -143,6 +147,77 @@ public class GerirEventos {
         }
     } catch (Exception e) {
         System.out.println("Erro ao verificar apostas: " + e.getMessage());
+    }
+}
+
+    public static void removerTodosEventos() {  
+        try {
+        
+         ArrayList<Evento> eventos = new ArrayList<>();
+          CadastrarEvento.setEventos(eventos);
+
+        
+        try (FileWriter fWriter = new FileWriter(ARQUIVO, false)) {
+            
+            fWriter.write("");
+        }
+
+    } catch (Exception e) {
+        System.out.println("Erro ao remover eventos: " + e.getMessage());
+    }
+}
+
+
+    public static void atualizarEvento(Evento eventoAtualizado) throws IOException, Exception {
+    ArrayList<Evento> eventos = lerEventos();
+    boolean eventoEncontrado = false;
+
+    
+    for (int i = 0; i < eventos.size(); i++) {
+        if (eventos.get(i).getId() == eventoAtualizado.getId()) {
+            eventos.set(i, eventoAtualizado);
+            eventoEncontrado = true;
+            break;
+        }
+    }
+
+    if (!eventoEncontrado) {
+        throw new Exception("Evento não encontrado para atualização.");
+    }
+
+    
+    try (FileWriter fWriter = new FileWriter(ARQUIVO, false);
+         BufferedWriter bWriter = new BufferedWriter(fWriter)) {
+        for (Evento e : eventos) {
+            bWriter.write(e.toFileString() + "\n");
+        }
+    }
+}
+
+
+    public static void excluirEvento(int id) throws IOException, Exception {
+    ArrayList<Evento> eventos = lerEventos();
+    boolean eventoEncontrado = false;
+
+    // Remover o evento da lista
+    for (int i = 0; i < eventos.size(); i++) {
+        if (eventos.get(i).getId() == id) {
+            eventos.remove(i);
+            eventoEncontrado = true;
+            break;
+        }
+    }
+
+    if (!eventoEncontrado) {
+        throw new Exception("Evento não encontrado para exclusão.");
+    }
+
+    // Reescrever todos os eventos no arquivo
+    try (FileWriter fWriter = new FileWriter(ARQUIVO, false);
+         BufferedWriter bWriter = new BufferedWriter(fWriter)) {
+        for (Evento e : eventos) {
+            bWriter.write(e.toFileString() + "\n");
+        }
     }
 }
 }
