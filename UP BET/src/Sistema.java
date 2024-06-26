@@ -5,9 +5,13 @@ import Classes.Aposta.Evento;
 import Classes.Aposta.GerirAposta;
 import Classes.Aposta.GerirEventos;
 import Classes.Pessoa.Administrador;
+import Classes.Pessoa.GerirUsuarios;
 import Classes.Pessoa.Usuario;
+import Times.Resultados;
 import Times.TimeA;
 import Times.TimeB;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,6 +20,7 @@ public class Sistema {
     
     static String nome;
     static String email;
+    private static Usuario usuarioAtual;
     private static Scanner leitor = new Scanner(System.in);
     
         private static void menuPrincipal() {
@@ -27,7 +32,7 @@ public class Sistema {
     
         }
     
-        private static void verificarOpcaoMenuPrincipal(int opcao) {
+        private static void verificarOpcaoMenuPrincipal(int opcao) throws Exception {
             
             switch (opcao) {
     
@@ -45,6 +50,7 @@ public class Sistema {
                 case 2:
                     int op2;
                     cadastrarUsuario();
+                    login(nome);
                     enterParaSeguir();
                     do {
 
@@ -130,6 +136,7 @@ public class Sistema {
                     System.out.println("[2] Ver Apostas");
                     System.out.println("[3] Alterar Apostas");
                     System.out.println("[4] Excluir Apostas");
+                    System.out.println("[5] Ver resultados");
                     System.out.print("[0] Voltar para o Menu Principal!\n");
     
         }
@@ -158,6 +165,10 @@ public class Sistema {
                     excluirAposta();
                     break;
     
+                case 5:
+
+                    GerirEventos.processarResultados();
+                    break;
                 case 0:
     
                     break;
@@ -186,10 +197,36 @@ public class Sistema {
         nome = Console.lerString();
         System.out.print("Seu email: ");
         email = Console.lerString();
+        Usuario usuario = new Usuario(nome, email);
+        GerirUsuarios.adicionarUsuario(usuario);
         System.out.println("\nSucesso!\nA UP BET te proporciona um saldo inicial de R$50,00 para suas apostas.\nCaso deseje aumenta-lo, é só acessar a opção 'saldo' no menu.");
     }
     
-    static Usuario u = new Usuario(nome, email);
+    public static void login(String nomeDeUsuario) throws Exception {
+    
+        Usuario usuario = buscarUsuarioPorNome(nomeDeUsuario);
+        if (usuario != null) {
+            usuarioAtual = usuario;
+            System.out.println("Usuário " + nomeDeUsuario + " logado com sucesso.");
+        } else {
+            throw new Exception("Usuário não encontrado.");
+        }
+    }
+
+    public static Usuario obterUsuarioAtual() {
+        return usuarioAtual;
+    }
+
+    private static Usuario buscarUsuarioPorNome(String nomeDeUsuario) {
+       
+        ArrayList<Usuario> usuarios = GerirUsuarios.getUsuarios(); 
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNome().equals(nomeDeUsuario)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
 
     private static void cadastrarAdm(){
 
@@ -346,7 +383,7 @@ public class Sistema {
         int golsB = Console.lerInt();
 
          
-        Aposta aposta = new Aposta(u, evento, valorAposta, evento.getTimeA(), evento.getTimeB(), golsA, golsB);
+        Aposta aposta = new Aposta(usuarioAtual, evento, valorAposta, evento.getTimeA(), evento.getTimeB(), golsA, golsB);
         
         CadastrarApostas.adicionarAposta(aposta);
 
@@ -393,24 +430,37 @@ public class Sistema {
 
     // *** Novo Método ***
     private static void verApostas() {
-         ArrayList<Aposta> listaApostas = (ArrayList<Aposta>) CadastrarApostas.getApostas();
+         
+        Usuario usuarioAtual = Sistema.obterUsuarioAtual();
 
-         try {
-
-            CadastrarApostas.verificarListaVazia();
-            System.out.println("\nApostas realizadas:");
-
-            for (Aposta tempA : listaApostas) {
-                System.out.println(tempA.exibirDadosAposta());
-            }
-
-        } catch(Exception exception) {
-
-            System.out.println(exception.getMessage());
-        } 
-
+    if (usuarioAtual == null) {
+        System.out.println("Nenhum usuário logado. Faça login para continuar.");
+        return;
     }
+        
+    ArrayList<Aposta> listaApostas = CadastrarApostas.getApostas();
 
+    try {
+        CadastrarApostas.verificarListaVazia();
+        System.out.println("\nApostas realizadas por " + usuarioAtual.getNome() + ":");
+
+        boolean encontrouApostas = false;
+
+        for (Aposta tempA : listaApostas) {
+            if (tempA.getUsuario().equals(usuarioAtual)) {
+                System.out.println(tempA.exibirDadosAposta());
+                encontrouApostas = true;
+            }
+        }
+
+        if (!encontrouApostas) {
+            System.out.println("Nenhuma aposta encontrada para o usuário " + usuarioAtual.getNome() + ".");
+        }
+
+    } catch (Exception exception) {
+        System.out.println(exception.getMessage());
+    }
+    }
     // *** Novo Método (Incompleto) ***
     private static void alterarAposta() {
         System.out.print("Digite o campeonato da aposta que deseja alterar: ");
@@ -436,7 +486,8 @@ public class Sistema {
 
     }
 
-    public static void executar() {
+
+    public static void executar() throws Exception {
 
         int op;
 

@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import Classes.Pessoa.Usuario;
 import Times.Resultados;
@@ -40,7 +42,7 @@ public class GerirEventos {
             while ((linha = bReader.readLine()) != null) {
                 Evento evento = Evento.fromString(linha);
                 eventos.add(evento);
-                System.out.println("Evento carregado: " + evento); // Linha de depuração
+                
             }
         }
 
@@ -72,9 +74,9 @@ public class GerirEventos {
         System.out.println("Eventos disponíveis: " + eventos); 
         
         for (Evento evento : eventos) {
-            System.out.println("Verificando evento com ID: " + evento.getId()); // Linha de depuração
+           
             if (evento.getId() == id) {
-                System.out.println("Evento encontrado: " + evento); // Linha de depuração
+                
                 return evento;
             }
         }
@@ -109,40 +111,38 @@ public class GerirEventos {
 
     } catch (Exception e) {
         System.out.println("Erro ao processar resultados: " + e.getMessage());
+        e.printStackTrace(); // Adicionado para ajudar a identificar o problema
     }
 }
 
     private static void verificarApostas(ArrayList<Evento> eventos) {
     try {
         ArrayList<Aposta> apostas = GerirAposta.lerApostas();
+        Set<Integer> eventosVerificados = new HashSet<>();
 
-        for (Aposta aposta : apostas) {
-            Evento evento = aposta.getEvento();
-            for (Evento e : eventos) {
-                if (e.getId() == evento.getId()) {
-                    if (aposta.getPrevGolsA() == e.getTimeA().getGols() && aposta.getPrevGolsB() == e.getTimeB().getGols()) {
-                        double valorGanho = aposta.calcularValorGanho();
-                        aposta.getUsuario().atualizarSaldo(valorGanho);
-                        System.out.println("Aposta ganha! Valor ganho: " + valorGanho);
-                    } else {
-                        System.out.println("Aposta perdida.");
+        for (Evento e : eventos) {
+            if (!eventosVerificados.contains(e.getId())) {
+                int golsA = e.getTimeA().getGols();
+                int golsB = e.getTimeB().getGols();
+                System.out.println("Verificando aposta para o evento: " + e.getId());
+                System.out.println("Resultado do jogo: " + e.getTimeA().getNome() + " " + golsA + " x " + golsB + " " + e.getTimeB().getNome());
+                eventosVerificados.add(e.getId());
+
+                for (Aposta aposta : apostas) {
+                    if (aposta.getEvento().getId() == e.getId()) {
+                        if (aposta.getPrevGolsA() == golsA && aposta.getPrevGolsB() == golsB) {
+                            double valorGanho = aposta.calcularValorGanho();
+                            aposta.getUsuario().atualizarSaldo(valorGanho);
+                            System.out.println("Aposta ganha! Valor ganho: " + valorGanho);
+                        } else {
+                            System.out.println("Aposta perdida.");
+                        }
                     }
                 }
             }
         }
-
     } catch (Exception e) {
         System.out.println("Erro ao verificar apostas: " + e.getMessage());
-    
     }
 }
-
-
-
-
-
-
-
-
-    }
-    
+}

@@ -49,6 +49,10 @@ public class GerirAposta{
 
         }
 
+        if (apostas.isEmpty()) {
+            throw new Exception("Não há apostas salvas.");
+        }
+
         return apostas;
 
     }

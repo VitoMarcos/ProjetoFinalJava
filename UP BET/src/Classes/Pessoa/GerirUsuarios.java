@@ -1,8 +1,14 @@
 package Classes.Pessoa;
 import java.util.ArrayList;
 
+import Classes.Aposta.Aposta;
+
 public class GerirUsuarios {
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
+
+    public static void adicionarUsuario(Usuario u) {
+    usuarios.add(u);
+}
 
     public static Usuario buscarUsuario(String nome) {
         for (Usuario usuario : usuarios) {
@@ -13,5 +19,9 @@ public class GerirUsuarios {
         throw new IllegalArgumentException("Usuário não encontrado: " + nome);
     }
 
-    // Outros métodos para gerenciar usuários...
+    public static ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+        
 }

@@ -114,20 +114,28 @@ public class Aposta {
 
     public static Aposta fromString(String data) throws Exception {
         String[] parts = data.split(", ");
-        if (parts.length != 10) { // Verificando se há 10 partes
+        if (parts.length != 7) {
             throw new IllegalArgumentException("Invalid data format for Aposta: " + data);
         }
-        String nomeUsuario = parts[0];
-        int idEvento = Integer.parseInt(parts[1]);
+
+        String usuarioNome = parts[0];
+        int eventoId = Integer.parseInt(parts[1]);
         double valorApostado = Double.parseDouble(parts[2]);
-        TimeA timeA = TimeA.fromString(parts[3] + ", " + parts[4] + ", " + parts[5]);
-        TimeB timeB = TimeB.fromString(parts[6] + ", " + parts[7] + ", " + parts[8]);
-        int prevGolsA = Integer.parseInt(parts[9]);
-        int prevGolsB = Integer.parseInt(parts[10]);
+        String timeANome = parts[3];
+        String timeBNome = parts[4];
+        int prevGolsA = Integer.parseInt(parts[5]);
+        int prevGolsB = Integer.parseInt(parts[6]);
 
-        Usuario usuario = GerirUsuarios.buscarUsuario(nomeUsuario);
+        // Aqui você precisa buscar o usuário e o evento de acordo com o nome e o ID fornecidos
+        Usuario usuario = GerirUsuarios.buscarUsuario(usuarioNome);
+        Evento evento = GerirEventos.buscarEvento(eventoId);
 
-        Evento evento = GerirEventos.buscarEventoPeloId(idEvento);
+        if (usuario == null || evento == null) {
+            throw new IllegalArgumentException("Usuario ou Evento não encontrado");
+        }
+
+        TimeA timeA = evento.getTimeA();
+        TimeB timeB = evento.getTimeB();
 
         return new Aposta(usuario, evento, valorApostado, timeA, timeB, prevGolsA, prevGolsB);
     }
@@ -146,7 +154,7 @@ public class Aposta {
     }
 
     public String exibirDadosAposta(){
-        return "[ " + evento.getId() + " ] " + evento.getCampeonato() + "\nResultado apostado: " + timeA.getNome() + " " + prevGolsA + " x " + prevGolsB + " " + timeB.getNome() + "\nValor apostado: R$" + valorApostado; 
+        return "[ " + evento.getId() + " ] " + evento.getCampeonato() + "\nResultado apostado: " + timeA.getNome() + " " + prevGolsA + " x " + prevGolsB + " " + timeB.getNome() + "\nValor apostado: R$" + valorApostado + "\n"; 
     }
 
 }
