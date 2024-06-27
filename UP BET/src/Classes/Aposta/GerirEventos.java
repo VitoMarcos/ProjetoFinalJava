@@ -143,11 +143,11 @@ public class GerirEventos {
                     if (acertouTimeA && acertouTimeB) {
                         double valorGanho = aposta.calcularValorGanho();
                         aposta.getUsuario().atualizarSaldo(valorGanho);
-                        System.out.println("Aposta ganha! Valor ganho: " + valorGanho);
+                        System.out.println("Aposta ganha! Valor ganho: R$" + valorGanho);
                     } else if (acertouTimeA || acertouTimeB) {
                         double valorGanho = aposta.calcularValorGanhoReduzido();
                         aposta.getUsuario().atualizarSaldo(valorGanho);
-                        System.out.println("Aposta parcialmente ganha! Valor ganho: " + valorGanho);
+                        System.out.println("Aposta parcialmente ganha! Valor ganho: R$" + valorGanho);
                     } else {
                         System.out.println("Aposta perdida.");
                     }

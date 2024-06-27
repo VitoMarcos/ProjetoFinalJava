@@ -1,4 +1,7 @@
 package Classes.Aposta;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import Classes.Pessoa.GerirUsuarios;
 import Classes.Pessoa.Usuario;
 import Times.TimeA;
@@ -33,13 +36,20 @@ public class Aposta {
     }
 
     public double calcularValorGanho() {
-        return valorApostado * (timeA.getOdd() + timeB.getOdd());
+        double valorGanho = valorApostado * timeA.getOdd() * timeB.getOdd();
+        return arredondar(valorGanho);
     }
 
     public double calcularValorGanhoReduzido() {
-        return valorApostado * (Math.max(timeA.getOdd(), timeB.getOdd()) / 2); // Recompensa reduzida pela metade da maior odd
+        double valorGanhoReduzido = (valorApostado * timeA.getOdd() + valorApostado * timeB.getOdd()) / 2;
+        return arredondar(valorGanhoReduzido);
     }
 
+    private double arredondar(double valor) {
+        BigDecimal bd = new BigDecimal(Double.toString(valor));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
     private void atualizarSaldoUsuario() {
         double valorGanho = calcularValorGanho();
