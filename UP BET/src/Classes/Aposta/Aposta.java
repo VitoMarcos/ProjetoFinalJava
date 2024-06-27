@@ -32,10 +32,12 @@ public class Aposta {
         return timeA.getGols() == prevGolsA && timeB.getGols() == prevGolsB;
     }
 
-    // Método para calcular o valor ganho na aposta
     public double calcularValorGanho() {
-        double oddTotal = timeA.getOdd() * timeB.getOdd();
-        return valorApostado * oddTotal;
+        return valorApostado * (timeA.getOdd() + timeB.getOdd());
+    }
+
+    public double calcularValorGanhoReduzido() {
+        return valorApostado * (Math.max(timeA.getOdd(), timeB.getOdd()) / 2); // Recompensa reduzida pela metade da maior odd
     }
 
 

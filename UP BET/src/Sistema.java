@@ -187,7 +187,7 @@ public class Sistema {
         nome = Console.lerString();
         System.out.print("Seu email: ");
         email = Console.lerString();
-        Usuario usuario = new Usuario(nome, email);
+        Usuario usuario = new Usuario(nome, email, 50.0);
         GerirUsuarios.adicionarUsuario(usuario);
         System.out.println("\nSucesso!\nA UP BET te proporciona um saldo inicial de R$50,00 para suas apostas.\nCaso deseje aumenta-lo, é só acessar a opção 'saldo' no menu.");
     }
@@ -368,8 +368,6 @@ public class Sistema {
          
         Aposta aposta = new Aposta(usuarioAtual, evento, valorAposta, evento.getTimeA(), evento.getTimeB(), golsA, golsB);
         
-        usuario.atualizarSaldo(-valorAposta);
-        
         CadastrarApostas.adicionarAposta(aposta);
 
         try {
@@ -382,7 +380,7 @@ public class Sistema {
             System.out.println(exception.getMessage());
         }
 
-        System.out.println("Saldo atual: " + usuario.getSaldo());
+        
     }
 
 
@@ -401,6 +399,7 @@ public class Sistema {
         try {
             Evento eventoSelecionado = GerirEventos.buscarEvento(op);
             processarAposta(eventoSelecionado);
+            
             if (op == 0) {
                 System.out.println("Voltando ao menu principal...\n");
             }

@@ -131,23 +131,33 @@ public class GerirEventos {
                 System.out.println("Verificando aposta para o evento: " + e.getId());
                 System.out.println("Resultado do jogo: " + e.getTimeA().getNome() + " " + golsA + " x " + golsB + " " + e.getTimeB().getNome() + "\n");
                 eventosVerificados.add(e.getId());
+            }
+                
 
                 for (Aposta aposta : apostas) {
                     if (aposta.getEvento().getId() == e.getId()) {
-                        if (aposta.getPrevGolsA() == golsA && aposta.getPrevGolsB() == golsB) {
-                            double valorGanho = aposta.calcularValorGanho();
-                            aposta.getUsuario().atualizarSaldo(valorGanho);
-                            System.out.println("Aposta ganha! Valor ganho: " + valorGanho);
-                        } else {
-                            System.out.println("Aposta perdida.");
-                        }
+                    
+                    boolean acertouTimeA = aposta.getPrevGolsA() == e.getTimeA().getGols();
+                    boolean acertouTimeB = aposta.getPrevGolsB() == e.getTimeB().getGols();
+
+                    if (acertouTimeA && acertouTimeB) {
+                        double valorGanho = aposta.calcularValorGanho();
+                        aposta.getUsuario().atualizarSaldo(valorGanho);
+                        System.out.println("Aposta ganha! Valor ganho: " + valorGanho);
+                    } else if (acertouTimeA || acertouTimeB) {
+                        double valorGanho = aposta.calcularValorGanhoReduzido();
+                        aposta.getUsuario().atualizarSaldo(valorGanho);
+                        System.out.println("Aposta parcialmente ganha! Valor ganho: " + valorGanho);
+                    } else {
+                        System.out.println("Aposta perdida.");
                     }
                 }
-            }
-        }
-    } catch (Exception e) {
+                }
+        
+    } }catch (Exception e) {
         System.out.println("Erro ao verificar apostas: " + e.getMessage());
     }
+
 }
 
     public static void removerTodosEventos() {  

@@ -3,9 +3,8 @@ package Classes.Pessoa;
 public class Usuario extends Pessoa {
     
     private double saldo;
-    private double saldoInicial = 50.0;
 
-    public Usuario(String nome, String email) {
+    public Usuario(String nome, String email, double saldoInicial) {
         super(nome, email);
         this.saldo = saldoInicial;
     }

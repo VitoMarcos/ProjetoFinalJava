@@ -2,6 +2,7 @@ package Classes.Aposta;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,23 +13,13 @@ public class GerirAposta{
 
     private static final String ARQUIVO = "apostas.txt";
 
-    //Salvar objeto apostas
-
     public static void salvarAposta(Aposta aposta) {
-        
-        ArrayList<Aposta> listaApostas = (ArrayList<Aposta>) CadastrarApostas.getApostas();
-
         try (FileWriter fWriter = new FileWriter(ARQUIVO, true);
-                BufferedWriter bWriter = new BufferedWriter(fWriter)) {
-
-                    for (Aposta tempA : listaApostas) {
-                        bWriter.write(tempA.toFileString() + "\n");
-                    }
-
+             BufferedWriter bWriter = new BufferedWriter(fWriter)) {
+            bWriter.write(aposta.toFileString() + "\n");
         } catch (IOException e) {
             System.out.println("Houve um erro ao criar ou acessar o arquivo " + ARQUIVO);
         }
-
     }
 
     public static ArrayList<Aposta> lerApostas() throws Exception {
@@ -74,6 +65,21 @@ public class GerirAposta{
         }
     }
 
+    public static void criarArquivoSeNaoExistir() {
+
+        try {
+            File arquivo = new File(ARQUIVO);
+
+            if (!arquivo.exists()) {
+                arquivo.createNewFile();
+            }
+
+        } catch (IOException exception) {
+
+            exception.printStackTrace();
+        }
+
+    }
     
 }
 
